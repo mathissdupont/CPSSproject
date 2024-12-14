@@ -16,7 +16,7 @@ namespace CPSS_ol_artik
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new cpssmainmenu());
+            Application.Run(new loginwindow());
         }
     }
 }

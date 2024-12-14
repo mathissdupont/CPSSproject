@@ -44,7 +44,18 @@ namespace CPSS_ol_artik
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
+        }
 
+        private void mainmenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addnewproductbttn_Click(object sender, EventArgs e)
+        {
+            addproduct addproduct = new addproduct();
+            addproduct.ShowDialog();
         }
     }
 }

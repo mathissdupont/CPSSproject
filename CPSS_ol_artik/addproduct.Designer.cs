@@ -112,6 +112,7 @@
             this.addproductbttn.TabIndex = 7;
             this.addproductbttn.Text = "Ürün Ekle";
             this.addproductbttn.UseVisualStyleBackColor = true;
+            this.addproductbttn.Click += new System.EventHandler(this.addproductbttn_Click);
             // 
             // addproduct
             // 
@@ -128,6 +129,7 @@
             this.Controls.Add(this.label1);
             this.Name = "addproduct";
             this.Text = "addproduct";
+            this.Load += new System.EventHandler(this.addproduct_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
