@@ -35,7 +35,7 @@
             this.addstokpage = new System.Windows.Forms.TabPage();
             this.addnewproductbttn = new System.Windows.Forms.Button();
             this.addstockbttn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.stockaddvalue = new System.Windows.Forms.TextBox();
             this.stockproductname = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -83,6 +83,7 @@
             this.satispage = new System.Windows.Forms.TabPage();
             this.saveandquitpage = new System.Windows.Forms.TabPage();
             this.saveandquitbttn = new System.Windows.Forms.Button();
+            this.stockgoruntulegrid = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.stockpage.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -92,6 +93,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.updatestockpage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.viewstokpage.SuspendLayout();
             this.orderpage.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.addorderpage.SuspendLayout();
@@ -99,6 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.orderdellmiktar)).BeginInit();
             this.delorderpage.SuspendLayout();
             this.saveandquitpage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.stockgoruntulegrid)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -143,7 +146,7 @@
             // 
             this.addstokpage.Controls.Add(this.addnewproductbttn);
             this.addstokpage.Controls.Add(this.addstockbttn);
-            this.addstokpage.Controls.Add(this.textBox1);
+            this.addstokpage.Controls.Add(this.stockaddvalue);
             this.addstokpage.Controls.Add(this.stockproductname);
             this.addstokpage.Controls.Add(this.label3);
             this.addstokpage.Controls.Add(this.label2);
@@ -175,14 +178,15 @@
             this.addstockbttn.TabIndex = 8;
             this.addstockbttn.Text = "Onayla";
             this.addstockbttn.UseVisualStyleBackColor = true;
+            this.addstockbttn.Click += new System.EventHandler(this.addstockbttn_Click);
             // 
-            // textBox1
+            // stockaddvalue
             // 
-            this.textBox1.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox1.Location = new System.Drawing.Point(549, 183);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(318, 39);
-            this.textBox1.TabIndex = 7;
+            this.stockaddvalue.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.stockaddvalue.Location = new System.Drawing.Point(549, 183);
+            this.stockaddvalue.Name = "stockaddvalue";
+            this.stockaddvalue.Size = new System.Drawing.Size(318, 39);
+            this.stockaddvalue.TabIndex = 7;
             // 
             // stockproductname
             // 
@@ -270,6 +274,7 @@
             this.delstock.TabIndex = 16;
             this.delstock.Text = "Onayla";
             this.delstock.UseVisualStyleBackColor = true;
+            this.delstock.Click += new System.EventHandler(this.delstock_Click);
             // 
             // delstockvalue
             // 
@@ -287,6 +292,7 @@
             this.delstockproductname.Name = "delstockproductname";
             this.delstockproductname.Size = new System.Drawing.Size(318, 39);
             this.delstockproductname.TabIndex = 14;
+            this.delstockproductname.SelectedIndexChanged += new System.EventHandler(this.delstockproductname_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -352,6 +358,7 @@
             this.updatestockbttn.TabIndex = 23;
             this.updatestockbttn.Text = "Onayla";
             this.updatestockbttn.UseVisualStyleBackColor = true;
+            this.updatestockbttn.Click += new System.EventHandler(this.updatestockbttn_Click);
             // 
             // updateproductvalue
             // 
@@ -402,6 +409,7 @@
             // 
             // viewstokpage
             // 
+            this.viewstokpage.Controls.Add(this.stockgoruntulegrid);
             this.viewstokpage.Location = new System.Drawing.Point(4, 28);
             this.viewstokpage.Name = "viewstokpage";
             this.viewstokpage.Size = new System.Drawing.Size(932, 580);
@@ -669,6 +677,18 @@
             this.saveandquitbttn.TabIndex = 0;
             this.saveandquitbttn.Text = "Save and Quit";
             this.saveandquitbttn.UseVisualStyleBackColor = true;
+            this.saveandquitbttn.Click += new System.EventHandler(this.saveandquitbttn_Click);
+            // 
+            // stockgoruntulegrid
+            // 
+            this.stockgoruntulegrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.stockgoruntulegrid.Location = new System.Drawing.Point(2, 36);
+            this.stockgoruntulegrid.Name = "stockgoruntulegrid";
+            this.stockgoruntulegrid.RowHeadersWidth = 51;
+            this.stockgoruntulegrid.RowTemplate.Height = 24;
+            this.stockgoruntulegrid.Size = new System.Drawing.Size(929, 543);
+            this.stockgoruntulegrid.TabIndex = 0;
+            this.stockgoruntulegrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.stockgoruntulegrid_CellContentClick);
             // 
             // mainmenu
             // 
@@ -691,6 +711,7 @@
             this.updatestockpage.ResumeLayout(false);
             this.updatestockpage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.viewstokpage.ResumeLayout(false);
             this.orderpage.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.addorderpage.ResumeLayout(false);
@@ -700,6 +721,7 @@
             this.delorderpage.ResumeLayout(false);
             this.delorderpage.PerformLayout();
             this.saveandquitpage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.stockgoruntulegrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -728,7 +750,7 @@
         private System.Windows.Forms.ComboBox stockproductname;
         private System.Windows.Forms.Button addnewproductbttn;
         private System.Windows.Forms.Button addstockbttn;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox stockaddvalue;
         private System.Windows.Forms.Button delstock;
         private System.Windows.Forms.TextBox delstockvalue;
         private System.Windows.Forms.ComboBox delstockproductname;
@@ -760,5 +782,6 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.DataGridView stockgoruntulegrid;
     }
 }

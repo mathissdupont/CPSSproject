@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SQLite;
+
 namespace CPSS_ol_artik
 {
     public partial class addproduct : Form

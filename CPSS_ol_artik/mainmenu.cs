@@ -17,6 +17,11 @@ namespace CPSS_ol_artik
             InitializeComponent();
             databaseclass dbclass = new databaseclass();
             dbclass.loaddatatocombobox("products", "products", stockproductname);
+            dbclass.loaddatatocombobox("products", "products", delstockproductname);
+            dbclass.loaddatatocombobox("products", "products", updatestockproductname);
+            dbclass.loaddatatocombobox("products", "products", orderaddproname);
+            dbclass.LoadStocksToDataGridView(stockgoruntulegrid);
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -64,6 +69,78 @@ namespace CPSS_ol_artik
         {
             
             
+        }
+
+        private void delstockproductname_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addstockbttn_Click(object sender, EventArgs e)
+        {
+            string secilenurun = stockproductname.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(secilenurun))
+            {
+                MessageBox.Show("Lütfen bir ürün seçiniz.");
+                return;
+            }
+            if (int.TryParse(stockaddvalue.Text, out int productvalue) && productvalue > 0)
+            {
+                databaseclass dbclass = new databaseclass();
+                dbclass.addProductStock(secilenurun, productvalue);
+            }
+            else
+            {
+                MessageBox.Show("Geçerli bir miktar giriniz.");
+            }
+        }
+
+        private void updatestockbttn_Click(object sender, EventArgs e)
+        {
+            string secilenurun = updatestockproductname.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(secilenurun))
+            {
+                MessageBox.Show("Lütfen bir ürün seçiniz.");
+                return;
+            }
+            if(int.TryParse(updateproductvalue.Text,out int productvalue) && productvalue > 0)
+            {
+                databaseclass dbclass = new databaseclass();
+                dbclass.UpdateProductStock(secilenurun, productvalue);
+            }
+            else
+            {
+                MessageBox.Show("Geçerli bir miktar giriniz.");
+            }
+        }
+
+        private void delstock_Click(object sender, EventArgs e)
+        {
+            string secilenurun= delstockproductname.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(secilenurun))
+            {
+                MessageBox.Show("Lütfen bir ürün seçiniz");
+                return;
+            }
+            if (int.TryParse(delstockvalue.Text, out int productvalue) && productvalue > 0)
+            {
+                databaseclass databaseclass = new databaseclass();
+                databaseclass.delProductStock(secilenurun,productvalue);
+            }
+            else
+            {
+                MessageBox.Show("Geçerli bir miktar giriniz");
+            }
+        }
+
+        private void saveandquitbttn_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void stockgoruntulegrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
