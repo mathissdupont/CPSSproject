@@ -58,6 +58,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.viewstokpage = new System.Windows.Forms.TabPage();
+            this.stockgoruntulegrid = new System.Windows.Forms.DataGridView();
             this.orderpage = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.addorderpage = new System.Windows.Forms.TabPage();
@@ -83,7 +84,9 @@
             this.satispage = new System.Windows.Forms.TabPage();
             this.saveandquitpage = new System.Windows.Forms.TabPage();
             this.saveandquitbttn = new System.Windows.Forms.Button();
-            this.stockgoruntulegrid = new System.Windows.Forms.DataGridView();
+            this.orderdetailsgrid = new System.Windows.Forms.DataGridView();
+            this.orderconfirmbttn = new System.Windows.Forms.Button();
+            this.confirmedordersgrid = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.stockpage.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -94,14 +97,17 @@
             this.updatestockpage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.viewstokpage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.stockgoruntulegrid)).BeginInit();
             this.orderpage.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.addorderpage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.orderaddmiktar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderdellmiktar)).BeginInit();
+            this.vieworderpage.SuspendLayout();
             this.delorderpage.SuspendLayout();
             this.saveandquitpage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.stockgoruntulegrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderdetailsgrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.confirmedordersgrid)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -417,6 +423,17 @@
             this.viewstokpage.Text = "Stok Görüntüle";
             this.viewstokpage.UseVisualStyleBackColor = true;
             // 
+            // stockgoruntulegrid
+            // 
+            this.stockgoruntulegrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.stockgoruntulegrid.Location = new System.Drawing.Point(2, 36);
+            this.stockgoruntulegrid.Name = "stockgoruntulegrid";
+            this.stockgoruntulegrid.RowHeadersWidth = 51;
+            this.stockgoruntulegrid.RowTemplate.Height = 24;
+            this.stockgoruntulegrid.Size = new System.Drawing.Size(929, 543);
+            this.stockgoruntulegrid.TabIndex = 0;
+            this.stockgoruntulegrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.stockgoruntulegrid_CellContentClick);
+            // 
             // orderpage
             // 
             this.orderpage.Controls.Add(this.tabControl3);
@@ -442,6 +459,8 @@
             // 
             // addorderpage
             // 
+            this.addorderpage.Controls.Add(this.orderconfirmbttn);
+            this.addorderpage.Controls.Add(this.orderdetailsgrid);
             this.addorderpage.Controls.Add(this.label16);
             this.addorderpage.Controls.Add(this.orderaddmiktar);
             this.addorderpage.Controls.Add(this.orderdellmiktar);
@@ -467,7 +486,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Times New Roman", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label16.Location = new System.Drawing.Point(33, 343);
+            this.label16.Location = new System.Drawing.Point(33, 313);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(240, 42);
             this.label16.TabIndex = 12;
@@ -511,7 +530,7 @@
             // 
             // orderdell
             // 
-            this.orderdell.Location = new System.Drawing.Point(682, 291);
+            this.orderdell.Location = new System.Drawing.Point(682, 252);
             this.orderdell.Name = "orderdell";
             this.orderdell.Size = new System.Drawing.Size(215, 49);
             this.orderdell.TabIndex = 7;
@@ -520,7 +539,7 @@
             // 
             // orderadd
             // 
-            this.orderadd.Location = new System.Drawing.Point(184, 291);
+            this.orderadd.Location = new System.Drawing.Point(184, 261);
             this.orderadd.Name = "orderadd";
             this.orderadd.Size = new System.Drawing.Size(215, 49);
             this.orderadd.TabIndex = 6;
@@ -592,6 +611,7 @@
             // 
             // vieworderpage
             // 
+            this.vieworderpage.Controls.Add(this.confirmedordersgrid);
             this.vieworderpage.Location = new System.Drawing.Point(4, 28);
             this.vieworderpage.Name = "vieworderpage";
             this.vieworderpage.Padding = new System.Windows.Forms.Padding(3);
@@ -679,16 +699,35 @@
             this.saveandquitbttn.UseVisualStyleBackColor = true;
             this.saveandquitbttn.Click += new System.EventHandler(this.saveandquitbttn_Click);
             // 
-            // stockgoruntulegrid
+            // orderdetailsgrid
             // 
-            this.stockgoruntulegrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.stockgoruntulegrid.Location = new System.Drawing.Point(2, 36);
-            this.stockgoruntulegrid.Name = "stockgoruntulegrid";
-            this.stockgoruntulegrid.RowHeadersWidth = 51;
-            this.stockgoruntulegrid.RowTemplate.Height = 24;
-            this.stockgoruntulegrid.Size = new System.Drawing.Size(929, 543);
-            this.stockgoruntulegrid.TabIndex = 0;
-            this.stockgoruntulegrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.stockgoruntulegrid_CellContentClick);
+            this.orderdetailsgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.orderdetailsgrid.Location = new System.Drawing.Point(4, 362);
+            this.orderdetailsgrid.Name = "orderdetailsgrid";
+            this.orderdetailsgrid.RowHeadersWidth = 51;
+            this.orderdetailsgrid.RowTemplate.Height = 24;
+            this.orderdetailsgrid.Size = new System.Drawing.Size(927, 214);
+            this.orderdetailsgrid.TabIndex = 13;
+            // 
+            // orderconfirmbttn
+            // 
+            this.orderconfirmbttn.Location = new System.Drawing.Point(682, 499);
+            this.orderconfirmbttn.Name = "orderconfirmbttn";
+            this.orderconfirmbttn.Size = new System.Drawing.Size(215, 49);
+            this.orderconfirmbttn.TabIndex = 14;
+            this.orderconfirmbttn.Text = "Siparişi Onayla";
+            this.orderconfirmbttn.UseVisualStyleBackColor = true;
+            this.orderconfirmbttn.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // confirmedordersgrid
+            // 
+            this.confirmedordersgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.confirmedordersgrid.Location = new System.Drawing.Point(2, 43);
+            this.confirmedordersgrid.Name = "confirmedordersgrid";
+            this.confirmedordersgrid.RowHeadersWidth = 51;
+            this.confirmedordersgrid.RowTemplate.Height = 24;
+            this.confirmedordersgrid.Size = new System.Drawing.Size(929, 533);
+            this.confirmedordersgrid.TabIndex = 0;
             // 
             // mainmenu
             // 
@@ -712,16 +751,19 @@
             this.updatestockpage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.viewstokpage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.stockgoruntulegrid)).EndInit();
             this.orderpage.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.addorderpage.ResumeLayout(false);
             this.addorderpage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.orderaddmiktar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderdellmiktar)).EndInit();
+            this.vieworderpage.ResumeLayout(false);
             this.delorderpage.ResumeLayout(false);
             this.delorderpage.PerformLayout();
             this.saveandquitpage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.stockgoruntulegrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderdetailsgrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.confirmedordersgrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -783,5 +825,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.DataGridView stockgoruntulegrid;
+        private System.Windows.Forms.DataGridView orderdetailsgrid;
+        private System.Windows.Forms.Button orderconfirmbttn;
+        private System.Windows.Forms.DataGridView confirmedordersgrid;
     }
 }

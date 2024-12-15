@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace CPSS_ol_artik
             dbclass.loaddatatocombobox("products", "products", updatestockproductname);
             dbclass.loaddatatocombobox("products", "products", orderaddproname);
             dbclass.LoadStocksToDataGridView(stockgoruntulegrid);
+            dbclass.LoadOrdersToDataGridView(orderdetailsgrid);
 
         }
 
@@ -51,7 +53,24 @@ namespace CPSS_ol_artik
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            string selectedProduct = orderaddproname.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedProduct))
+            {
+                MessageBox.Show("Lütfen bir ürün seçiniz.");
+                return;
+            }
+            if (orderaddmiktar.Value > 0)
+            {
+                int quantity = (int)orderaddmiktar.Value;
+                databaseclass dbclass = new databaseclass();
+                dbclass.AddOrder(selectedProduct, quantity);
+                MessageBox.Show("Sipariş Eklendi");
+                dbclass.LoadOrdersToDataGridView(orderdetailsgrid);
+            }
+            else
+            {
+                MessageBox.Show("Geçerli bir miktar giriniz."); 
+            }
         }
 
         private void mainmenu_Load(object sender, EventArgs e)
@@ -141,6 +160,15 @@ namespace CPSS_ol_artik
         private void stockgoruntulegrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            databaseclass dbclass = new databaseclass();
+            dbclass.MoveOrdersToConfirmed(); 
+            dbclass.LoadOrdersToDataGridView(orderdetailsgrid); 
+            dbclass.LoadConfirmedOrdersToDataGridView(confirmedordersgrid); 
+            MessageBox.Show("Siparişler onaylandı ve Kaydedildi.!");
         }
     }
 }
