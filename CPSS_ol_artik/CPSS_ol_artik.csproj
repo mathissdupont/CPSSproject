@@ -71,6 +71,7 @@
     <Compile Include="addproduct.Designer.cs">
       <DependentUpon>addproduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="databaseclass.cs" />
     <Compile Include="loginwindow.cs">
       <SubType>Form</SubType>
     </Compile>

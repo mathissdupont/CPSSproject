@@ -42,6 +42,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.delstokpage = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.delstock = new System.Windows.Forms.Button();
             this.delstockvalue = new System.Windows.Forms.TextBox();
             this.delstockproductname = new System.Windows.Forms.ComboBox();
@@ -49,6 +50,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.updatestockpage = new System.Windows.Forms.TabPage();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.updatestockbttn = new System.Windows.Forms.Button();
             this.updateproductvalue = new System.Windows.Forms.TextBox();
             this.updatestockproductname = new System.Windows.Forms.ComboBox();
@@ -81,15 +83,15 @@
             this.satispage = new System.Windows.Forms.TabPage();
             this.saveandquitpage = new System.Windows.Forms.TabPage();
             this.saveandquitbttn = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.stockpage.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.addstokpage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.delstokpage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.updatestockpage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.orderpage.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.addorderpage.SuspendLayout();
@@ -97,8 +99,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.orderdellmiktar)).BeginInit();
             this.delorderpage.SuspendLayout();
             this.saveandquitpage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -192,6 +192,7 @@
             this.stockproductname.Name = "stockproductname";
             this.stockproductname.Size = new System.Drawing.Size(318, 39);
             this.stockproductname.TabIndex = 6;
+            this.stockproductname.SelectedIndexChanged += new System.EventHandler(this.stockproductname_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -250,6 +251,16 @@
             this.delstokpage.TabIndex = 1;
             this.delstokpage.Text = "Stok Sil";
             this.delstokpage.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(233, 238);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
             // 
             // delstock
             // 
@@ -322,6 +333,16 @@
             this.updatestockpage.TabIndex = 2;
             this.updatestockpage.Text = "Stok Güncelle";
             this.updatestockpage.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(233, 238);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 24;
+            this.pictureBox3.TabStop = false;
             // 
             // updatestockbttn
             // 
@@ -465,7 +486,7 @@
             // 
             this.orderdellproname.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.orderdellproname.FormattingEnabled = true;
-            this.orderdellproname.Location = new System.Drawing.Point(622, 106);
+            this.orderdellproname.Location = new System.Drawing.Point(622, 101);
             this.orderdellproname.Name = "orderdellproname";
             this.orderdellproname.Size = new System.Drawing.Size(275, 45);
             this.orderdellproname.TabIndex = 9;
@@ -649,26 +670,6 @@
             this.saveandquitbttn.Text = "Save and Quit";
             this.saveandquitbttn.UseVisualStyleBackColor = true;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(233, 238);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 17;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(233, 238);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 24;
-            this.pictureBox3.TabStop = false;
-            // 
             // mainmenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -686,8 +687,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.delstokpage.ResumeLayout(false);
             this.delstokpage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.updatestockpage.ResumeLayout(false);
             this.updatestockpage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.orderpage.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.addorderpage.ResumeLayout(false);
@@ -697,8 +700,6 @@
             this.delorderpage.ResumeLayout(false);
             this.delorderpage.PerformLayout();
             this.saveandquitpage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }

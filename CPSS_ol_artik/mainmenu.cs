@@ -15,6 +15,8 @@ namespace CPSS_ol_artik
         public mainmenu()
         {
             InitializeComponent();
+            databaseclass dbclass = new databaseclass();
+            dbclass.loaddatatocombobox("products", "products", stockproductname);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -56,6 +58,12 @@ namespace CPSS_ol_artik
         {
             addproduct addproduct = new addproduct();
             addproduct.ShowDialog();
+        }
+
+        private void stockproductname_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            
         }
     }
 }
