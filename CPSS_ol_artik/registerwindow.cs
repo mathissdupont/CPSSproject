@@ -26,5 +26,21 @@ namespace CPSS_ol_artik
         {
 
         }
+
+        private void registerusername_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void registerbttn_Click(object sender, EventArgs e)
+        {
+            databaseclass db = new databaseclass();
+            string username = registerusername.Text; 
+            string password = registerpass.Text;
+            string email = registermail.Text;
+            string oppass = registeroppass.Text;
+            db.register(username,password,email,oppass);
+            this.Close();
+        }
     }
 }

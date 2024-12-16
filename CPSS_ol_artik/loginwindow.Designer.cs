@@ -106,6 +106,7 @@
             this.registerbttn.TabIndex = 6;
             this.registerbttn.Text = "Register";
             this.registerbttn.UseVisualStyleBackColor = true;
+            this.registerbttn.Click += new System.EventHandler(this.registerbttn_Click);
             // 
             // loginwindow
             // 

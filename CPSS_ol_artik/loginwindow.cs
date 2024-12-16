@@ -78,6 +78,12 @@ namespace CPSS_ol_artik
             {
                 MessageBox.Show($"Bir hata oluştu {ex.Message}");
             }
-        }   
+        }
+
+        private void registerbttn_Click(object sender, EventArgs e)
+        {
+            registerwindow registerwindow = new registerwindow();
+            registerwindow.Show();
+        }
     }
 }

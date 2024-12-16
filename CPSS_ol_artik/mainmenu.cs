@@ -21,6 +21,7 @@ namespace CPSS_ol_artik
             dbclass.loaddatatocombobox("products", "products", delstockproductname);
             dbclass.loaddatatocombobox("products", "products", updatestockproductname);
             dbclass.loaddatatocombobox("products", "products", orderaddproname);
+            dbclass.loaddatatocombobox("ProductName","orderstemp",orderdellproname);
             dbclass.LoadStocksToDataGridView(stockgoruntulegrid);
             dbclass.LoadOrdersToDataGridView(orderdetailsgrid);
 
@@ -63,7 +64,7 @@ namespace CPSS_ol_artik
             {
                 int quantity = (int)orderaddmiktar.Value;
                 databaseclass dbclass = new databaseclass();
-                dbclass.AddOrder(selectedProduct, quantity);
+                dbclass.AddOrder(selectedProduct, quantity,stockgoruntulegrid);
                 MessageBox.Show("Sipariş Eklendi");
                 dbclass.LoadOrdersToDataGridView(orderdetailsgrid);
             }
@@ -106,7 +107,7 @@ namespace CPSS_ol_artik
             if (int.TryParse(stockaddvalue.Text, out int productvalue) && productvalue > 0)
             {
                 databaseclass dbclass = new databaseclass();
-                dbclass.addProductStock(secilenurun, productvalue);
+                dbclass.addProductStock(secilenurun, productvalue,stockgoruntulegrid);
             }
             else
             {
@@ -125,7 +126,7 @@ namespace CPSS_ol_artik
             if(int.TryParse(updateproductvalue.Text,out int productvalue) && productvalue > 0)
             {
                 databaseclass dbclass = new databaseclass();
-                dbclass.UpdateProductStock(secilenurun, productvalue);
+                dbclass.UpdateProductStock(secilenurun, productvalue,stockgoruntulegrid);
             }
             else
             {
@@ -144,7 +145,7 @@ namespace CPSS_ol_artik
             if (int.TryParse(delstockvalue.Text, out int productvalue) && productvalue > 0)
             {
                 databaseclass databaseclass = new databaseclass();
-                databaseclass.delProductStock(secilenurun,productvalue);
+                databaseclass.delProductStock(secilenurun,productvalue,stockgoruntulegrid);
             }
             else
             {
@@ -169,6 +170,38 @@ namespace CPSS_ol_artik
             dbclass.LoadOrdersToDataGridView(orderdetailsgrid); 
             dbclass.LoadConfirmedOrdersToDataGridView(confirmedordersgrid); 
             MessageBox.Show("Siparişler onaylandı ve Kaydedildi.!");
+        }
+
+        private void orderdell_Click(object sender, EventArgs e)
+        {
+            string selectedProduct = orderdellproname.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedProduct))
+            {
+                MessageBox.Show("Lütfen bir ürün seçiniz.");
+                return;
+            }
+            if (orderdellmiktar.Value > 0)
+            {
+                int quantity = (int)orderdellmiktar.Value;
+                databaseclass dbclass = new databaseclass();
+                dbclass.DelOrder(selectedProduct, quantity, stockgoruntulegrid);
+                MessageBox.Show("Sipariş Silindi");
+                dbclass.LoadOrdersToDataGridView(orderdetailsgrid);
+            }
+            else
+            {
+                MessageBox.Show("Geçerli bir miktar giriniz.");
+            }
+        }
+
+        private void orderaddproname_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void orderaddmiktar_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

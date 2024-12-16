@@ -62,6 +62,8 @@
             this.orderpage = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.addorderpage = new System.Windows.Forms.TabPage();
+            this.orderconfirmbttn = new System.Windows.Forms.Button();
+            this.orderdetailsgrid = new System.Windows.Forms.DataGridView();
             this.label16 = new System.Windows.Forms.Label();
             this.orderaddmiktar = new System.Windows.Forms.NumericUpDown();
             this.orderdellmiktar = new System.Windows.Forms.NumericUpDown();
@@ -76,6 +78,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.vieworderpage = new System.Windows.Forms.TabPage();
+            this.confirmedordersgrid = new System.Windows.Forms.DataGridView();
             this.delorderpage = new System.Windows.Forms.TabPage();
             this.ordercancelbttn = new System.Windows.Forms.Button();
             this.ordercancelID = new System.Windows.Forms.TextBox();
@@ -84,9 +87,6 @@
             this.satispage = new System.Windows.Forms.TabPage();
             this.saveandquitpage = new System.Windows.Forms.TabPage();
             this.saveandquitbttn = new System.Windows.Forms.Button();
-            this.orderdetailsgrid = new System.Windows.Forms.DataGridView();
-            this.orderconfirmbttn = new System.Windows.Forms.Button();
-            this.confirmedordersgrid = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.stockpage.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -101,13 +101,13 @@
             this.orderpage.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.addorderpage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.orderdetailsgrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderaddmiktar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderdellmiktar)).BeginInit();
             this.vieworderpage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.confirmedordersgrid)).BeginInit();
             this.delorderpage.SuspendLayout();
             this.saveandquitpage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.orderdetailsgrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.confirmedordersgrid)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -482,6 +482,26 @@
             this.addorderpage.Text = "Sipariş Al";
             this.addorderpage.UseVisualStyleBackColor = true;
             // 
+            // orderconfirmbttn
+            // 
+            this.orderconfirmbttn.Location = new System.Drawing.Point(682, 499);
+            this.orderconfirmbttn.Name = "orderconfirmbttn";
+            this.orderconfirmbttn.Size = new System.Drawing.Size(215, 49);
+            this.orderconfirmbttn.TabIndex = 14;
+            this.orderconfirmbttn.Text = "Siparişi Onayla";
+            this.orderconfirmbttn.UseVisualStyleBackColor = true;
+            this.orderconfirmbttn.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // orderdetailsgrid
+            // 
+            this.orderdetailsgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.orderdetailsgrid.Location = new System.Drawing.Point(4, 362);
+            this.orderdetailsgrid.Name = "orderdetailsgrid";
+            this.orderdetailsgrid.RowHeadersWidth = 51;
+            this.orderdetailsgrid.RowTemplate.Height = 24;
+            this.orderdetailsgrid.Size = new System.Drawing.Size(927, 214);
+            this.orderdetailsgrid.TabIndex = 13;
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -499,6 +519,7 @@
             this.orderaddmiktar.Name = "orderaddmiktar";
             this.orderaddmiktar.Size = new System.Drawing.Size(275, 45);
             this.orderaddmiktar.TabIndex = 11;
+            this.orderaddmiktar.ValueChanged += new System.EventHandler(this.orderaddmiktar_ValueChanged);
             // 
             // orderdellmiktar
             // 
@@ -527,6 +548,7 @@
             this.orderaddproname.Name = "orderaddproname";
             this.orderaddproname.Size = new System.Drawing.Size(275, 45);
             this.orderaddproname.TabIndex = 8;
+            this.orderaddproname.SelectedIndexChanged += new System.EventHandler(this.orderaddproname_SelectedIndexChanged);
             // 
             // orderdell
             // 
@@ -536,6 +558,7 @@
             this.orderdell.TabIndex = 7;
             this.orderdell.Text = "Ürün Sil";
             this.orderdell.UseVisualStyleBackColor = true;
+            this.orderdell.Click += new System.EventHandler(this.orderdell_Click);
             // 
             // orderadd
             // 
@@ -620,6 +643,16 @@
             this.vieworderpage.Text = "Sipariş Görüntüle";
             this.vieworderpage.UseVisualStyleBackColor = true;
             // 
+            // confirmedordersgrid
+            // 
+            this.confirmedordersgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.confirmedordersgrid.Location = new System.Drawing.Point(2, 43);
+            this.confirmedordersgrid.Name = "confirmedordersgrid";
+            this.confirmedordersgrid.RowHeadersWidth = 51;
+            this.confirmedordersgrid.RowTemplate.Height = 24;
+            this.confirmedordersgrid.Size = new System.Drawing.Size(929, 533);
+            this.confirmedordersgrid.TabIndex = 0;
+            // 
             // delorderpage
             // 
             this.delorderpage.Controls.Add(this.ordercancelbttn);
@@ -699,36 +732,6 @@
             this.saveandquitbttn.UseVisualStyleBackColor = true;
             this.saveandquitbttn.Click += new System.EventHandler(this.saveandquitbttn_Click);
             // 
-            // orderdetailsgrid
-            // 
-            this.orderdetailsgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.orderdetailsgrid.Location = new System.Drawing.Point(4, 362);
-            this.orderdetailsgrid.Name = "orderdetailsgrid";
-            this.orderdetailsgrid.RowHeadersWidth = 51;
-            this.orderdetailsgrid.RowTemplate.Height = 24;
-            this.orderdetailsgrid.Size = new System.Drawing.Size(927, 214);
-            this.orderdetailsgrid.TabIndex = 13;
-            // 
-            // orderconfirmbttn
-            // 
-            this.orderconfirmbttn.Location = new System.Drawing.Point(682, 499);
-            this.orderconfirmbttn.Name = "orderconfirmbttn";
-            this.orderconfirmbttn.Size = new System.Drawing.Size(215, 49);
-            this.orderconfirmbttn.TabIndex = 14;
-            this.orderconfirmbttn.Text = "Siparişi Onayla";
-            this.orderconfirmbttn.UseVisualStyleBackColor = true;
-            this.orderconfirmbttn.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // confirmedordersgrid
-            // 
-            this.confirmedordersgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.confirmedordersgrid.Location = new System.Drawing.Point(2, 43);
-            this.confirmedordersgrid.Name = "confirmedordersgrid";
-            this.confirmedordersgrid.RowHeadersWidth = 51;
-            this.confirmedordersgrid.RowTemplate.Height = 24;
-            this.confirmedordersgrid.Size = new System.Drawing.Size(929, 533);
-            this.confirmedordersgrid.TabIndex = 0;
-            // 
             // mainmenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -756,14 +759,14 @@
             this.tabControl3.ResumeLayout(false);
             this.addorderpage.ResumeLayout(false);
             this.addorderpage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.orderdetailsgrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderaddmiktar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderdellmiktar)).EndInit();
             this.vieworderpage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.confirmedordersgrid)).EndInit();
             this.delorderpage.ResumeLayout(false);
             this.delorderpage.PerformLayout();
             this.saveandquitpage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.orderdetailsgrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.confirmedordersgrid)).EndInit();
             this.ResumeLayout(false);
 
         }
