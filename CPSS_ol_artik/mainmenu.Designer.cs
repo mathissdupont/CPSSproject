@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainmenu));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.stockpage = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -425,6 +426,7 @@
             // 
             // stockgoruntulegrid
             // 
+            this.stockgoruntulegrid.AccessibleName = "stockgoruntulegrid";
             this.stockgoruntulegrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.stockgoruntulegrid.Location = new System.Drawing.Point(2, 36);
             this.stockgoruntulegrid.Name = "stockgoruntulegrid";
@@ -645,13 +647,28 @@
             // 
             // confirmedordersgrid
             // 
+            this.confirmedordersgrid.AllowUserToAddRows = false;
+            this.confirmedordersgrid.AllowUserToDeleteRows = false;
+            this.confirmedordersgrid.AllowUserToOrderColumns = true;
+            this.confirmedordersgrid.BackgroundColor = System.Drawing.SystemColors.Menu;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.confirmedordersgrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.confirmedordersgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.confirmedordersgrid.Location = new System.Drawing.Point(2, 43);
+            this.confirmedordersgrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.confirmedordersgrid.Location = new System.Drawing.Point(3, 3);
             this.confirmedordersgrid.Name = "confirmedordersgrid";
+            this.confirmedordersgrid.ReadOnly = true;
             this.confirmedordersgrid.RowHeadersWidth = 51;
             this.confirmedordersgrid.RowTemplate.Height = 24;
-            this.confirmedordersgrid.Size = new System.Drawing.Size(929, 533);
+            this.confirmedordersgrid.Size = new System.Drawing.Size(926, 571);
             this.confirmedordersgrid.TabIndex = 0;
+            this.confirmedordersgrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.confirmedordersgrid_CellContentClick);
             // 
             // delorderpage
             // 

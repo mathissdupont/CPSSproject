@@ -8,14 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace CPSS_ol_artik
 {
     public partial class addproduct : Form
     {
         private string connectionString = "Data Source=CPSS.db;";
+       
         public addproduct()
         {
+            mainmenu mainmenu = new mainmenu();
+            databaseclass db = new databaseclass();
+            
             InitializeComponent();
         }
 
@@ -49,9 +52,9 @@ namespace CPSS_ol_artik
                         cmd.Parameters.AddWithValue("@products", productname);
                         cmd.Parameters.AddWithValue("@productID", productID);
                         cmd.Parameters.AddWithValue("stock", productvalue);
-                        int rowsaffected = cmd.ExecuteNonQuery();
+                        int rowsaffected = cmd.ExecuteNonQuery();                        
                         if (rowsaffected > 0)
-                        {
+                        {                           
                             MessageBox.Show("Ürün başarıyla eklendi.");
                         }
                         else

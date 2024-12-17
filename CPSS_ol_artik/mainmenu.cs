@@ -13,6 +13,7 @@ namespace CPSS_ol_artik
 {
     public partial class mainmenu : Form
     {
+        
         public mainmenu()
         {
             InitializeComponent();
@@ -200,6 +201,11 @@ namespace CPSS_ol_artik
         }
 
         private void orderaddmiktar_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void confirmedordersgrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

@@ -60,20 +60,7 @@ namespace CPSS_ol_artik
         }
 
         string randomID = Guid.NewGuid().ToString();
-        public void LoadConfirmedOrdersToDataGridView(DataGridView gridView)
-        {
-            using (SQLiteConnection conn = new SQLiteConnection("Data Source=CPSS.db;"))
-            {
-                conn.Open();
-                string query = "SELECT * FROM orders";
-                using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, conn))
-                {
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    gridView.DataSource = dt;
-                }
-            }
-        }
+
 
         public void MoveOrdersToConfirmed()
         {
@@ -81,12 +68,13 @@ namespace CPSS_ol_artik
             {
                 conn.Open();
 
-                
-                string insertQuery = @"
-                INSERT INTO orders (ID, ProductName, Quantity)
-                SELECT @ID, ProductName, Quantity FROM orderstemp";
+                // Yeni bir OrderGroupID oluştur
+                string orderGroupID = Guid.NewGuid().ToString();
 
-                
+                string insertQuery = @"
+                INSERT INTO orders (ProductName, Quantity, OrderGroupID)
+                SELECT ProductName, Quantity, @orderGroupID FROM orderstemp";
+
                 string selectOrdersQuery = "SELECT ProductName, Quantity FROM orderstemp";
                 using (SQLiteCommand selectCmd = new SQLiteCommand(selectOrdersQuery, conn))
                 using (SQLiteDataReader reader = selectCmd.ExecuteReader())
@@ -98,16 +86,16 @@ namespace CPSS_ol_artik
 
                         using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, conn))
                         {
-                            string randomID = Guid.NewGuid().ToString(); 
-                            insertCmd.Parameters.AddWithValue("@ID", randomID);
+                            string randomID = Guid.NewGuid().ToString();
                             insertCmd.Parameters.AddWithValue("@ProductName", productName);
                             insertCmd.Parameters.AddWithValue("@Quantity", quantity);
+                            insertCmd.Parameters.AddWithValue("@orderGroupID", orderGroupID);
                             insertCmd.ExecuteNonQuery();
                         }
                     }
                 }
 
-                
+                // Geçici tabloyu temizle
                 string deleteQuery = "DELETE FROM orderstemp";
                 using (SQLiteCommand deleteCmd = new SQLiteCommand(deleteQuery, conn))
                 {
@@ -115,7 +103,28 @@ namespace CPSS_ol_artik
                 }
             }
         }
+        public void LoadConfirmedOrdersToDataGridView(DataGridView gridView)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=CPSS.db;"))
+            {
+                conn.Open();
 
+                // Siparişleri gruplandır ve yan yana birleştir
+                string query = @"
+                SELECT 
+                    OrderGroupID,
+                    GROUP_CONCAT(ProductName || ' (' || Quantity || ')', ', ') AS Products
+                FROM orders
+                GROUP BY OrderGroupID";
+
+                using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, conn))
+                {
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    gridView.DataSource = dt;
+                }
+            }
+        }
 
         public void LoadOrdersToDataGridView(DataGridView gridView)
         {
