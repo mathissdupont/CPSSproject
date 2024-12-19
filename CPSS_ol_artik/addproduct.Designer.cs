@@ -36,6 +36,8 @@
             this.addproductID = new System.Windows.Forms.TextBox();
             this.addproductvalue = new System.Windows.Forms.TextBox();
             this.addproductbttn = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.addproductprice = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -106,7 +108,7 @@
             // addproductbttn
             // 
             this.addproductbttn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.addproductbttn.Location = new System.Drawing.Point(186, 269);
+            this.addproductbttn.Location = new System.Drawing.Point(187, 359);
             this.addproductbttn.Name = "addproductbttn";
             this.addproductbttn.Size = new System.Drawing.Size(283, 45);
             this.addproductbttn.TabIndex = 7;
@@ -114,11 +116,32 @@
             this.addproductbttn.UseVisualStyleBackColor = true;
             this.addproductbttn.Click += new System.EventHandler(this.addproductbttn_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label5.Location = new System.Drawing.Point(27, 279);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(136, 33);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Ürün Fiyat";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // addproductprice
+            // 
+            this.addproductprice.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.addproductprice.Location = new System.Drawing.Point(186, 276);
+            this.addproductprice.Name = "addproductprice";
+            this.addproductprice.Size = new System.Drawing.Size(284, 39);
+            this.addproductprice.TabIndex = 9;
+            // 
             // addproduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 334);
+            this.ClientSize = new System.Drawing.Size(571, 439);
+            this.Controls.Add(this.addproductprice);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.addproductbttn);
             this.Controls.Add(this.addproductvalue);
             this.Controls.Add(this.addproductID);
@@ -145,5 +168,7 @@
         private System.Windows.Forms.TextBox addproductID;
         private System.Windows.Forms.TextBox addproductvalue;
         private System.Windows.Forms.Button addproductbttn;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox addproductprice;
     }
 }

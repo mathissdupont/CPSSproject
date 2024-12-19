@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SQLite;
+using System.Drawing.Printing;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,142 @@ namespace CPSS_ol_artik
 {
     public class databaseclass
     {
+        public static int totalprice()
+        {
+            int totalPrice = 0;
+
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=CPSS.db;"))
+            {
+                conn.Open();
+                string query = "SELECT Quantity, Price FROM orderstemp";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int quantity = Convert.ToInt32(reader["Quantity"]);
+                        int price = Convert.ToInt32(reader["Price"]);
+                        totalPrice += quantity * price;
+                    }
+                }
+            }
+
+            return totalPrice;
+        }
+        public static void LoadTableData(string tableName,DataGridView dataGrid)
+        {
+            string connectionString = "Data Source=CPSS.db;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    // Seçilen tablodaki verileri al
+                    string query = $"SELECT * FROM {tableName}";
+                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, connection);
+
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    // Verileri DataGridView'e yükle
+                    dataGrid.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Tablodaki verileri yüklerken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public static void LoadTablesToComboBox(ComboBox comboBoxTables)
+        {
+            string connectionString = "Data Source=CPSS.db;"; 
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    
+                    string query = "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;";
+                    SQLiteCommand command = new SQLiteCommand(query, connection);
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    
+                    while (reader.Read())
+                    {
+                        comboBoxTables.Items.Add(reader["name"].ToString());
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Tablo adlarını yüklerken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public static void PrintDataGridView(DataGridView dataGridView, PrintPageEventArgs e)
+        {
+            try
+            {
+                int yPosition = 0; 
+                int rowHeight = 30; 
+
+                Font font = new Font("Arial", 10); 
+                Brush brush = Brushes.Black; 
+
+                
+                for (int col = 0; col < dataGridView.Columns.Count; col++)
+                {
+                    string headerText = dataGridView.Columns[col].HeaderText;
+                    e.Graphics.DrawString(headerText, font, brush, new PointF(100 + col * 100, yPosition));
+                }
+
+                yPosition += rowHeight;
+
+                
+                for (int row = 0; row < dataGridView.Rows.Count; row++)
+                {
+                    for (int col = 0; col < dataGridView.Columns.Count; col++)
+                    {
+                        string cellText = dataGridView.Rows[row].Cells[col].Value?.ToString() ?? string.Empty;
+                        e.Graphics.DrawString(cellText, font, brush, new PointF(100 + col * 100, yPosition));
+                    }
+                    yPosition += rowHeight;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Yazdırma sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void delorderfinite(string UrunID,DataGridView dgv)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection("Data Source=CPSS.db;"))
+            {
+                conn.Open();
+                string query = "DELETE FROM orders WHERE OrderGroupID = @UrunID";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@UrunID", UrunID);
+
+                    int rowsaffected = cmd.ExecuteNonQuery();
+                    if (rowsaffected > 0)
+                    {
+                        MessageBox.Show("Sipariş Başarıyla Silindi");
+                        LoadConfirmedOrdersToDataGridView(dgv);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sipariş silinirken bir hata ile karşılaşıldı");
+                    }
+                }
+            }
+        }
         public void register(string username,string password,string email,string adminpass)
         {
             using (SQLiteConnection conn = new SQLiteConnection("Data Source=CPSS.db;"))
@@ -62,18 +200,18 @@ namespace CPSS_ol_artik
         string randomID = Guid.NewGuid().ToString();
 
 
-        public void MoveOrdersToConfirmed()
+        public void MoveOrdersToConfirmed(int totalPrice)
         {
             using (SQLiteConnection conn = new SQLiteConnection("Data Source=CPSS.db;"))
             {
                 conn.Open();
 
-                // Yeni bir OrderGroupID oluştur
+                
                 string orderGroupID = Guid.NewGuid().ToString();
 
                 string insertQuery = @"
-                INSERT INTO orders (ProductName, Quantity, OrderGroupID)
-                SELECT ProductName, Quantity, @orderGroupID FROM orderstemp";
+                INSERT INTO orders (ProductName, Quantity, OrderGroupID, Price)
+                SELECT ProductName, Quantity, @orderGroupID, @TotalPrice FROM orderstemp";
 
                 string selectOrdersQuery = "SELECT ProductName, Quantity FROM orderstemp";
                 using (SQLiteCommand selectCmd = new SQLiteCommand(selectOrdersQuery, conn))
@@ -90,12 +228,13 @@ namespace CPSS_ol_artik
                             insertCmd.Parameters.AddWithValue("@ProductName", productName);
                             insertCmd.Parameters.AddWithValue("@Quantity", quantity);
                             insertCmd.Parameters.AddWithValue("@orderGroupID", orderGroupID);
+                            insertCmd.Parameters.AddWithValue("@TotalPrice", totalPrice);
                             insertCmd.ExecuteNonQuery();
                         }
                     }
                 }
 
-                // Geçici tabloyu temizle
+                
                 string deleteQuery = "DELETE FROM orderstemp";
                 using (SQLiteCommand deleteCmd = new SQLiteCommand(deleteQuery, conn))
                 {
@@ -109,11 +248,12 @@ namespace CPSS_ol_artik
             {
                 conn.Open();
 
-                // Siparişleri gruplandır ve yan yana birleştir
+
                 string query = @"
                 SELECT 
-                    OrderGroupID,
-                    GROUP_CONCAT(ProductName || ' (' || Quantity || ')', ', ') AS Products
+                DISTINCT OrderGroupID,
+                GROUP_CONCAT(ProductName || ' (' || Quantity || ')', ', ') AS Products,
+                Price AS Price
                 FROM orders
                 GROUP BY OrderGroupID";
 
@@ -147,7 +287,14 @@ namespace CPSS_ol_artik
             {
                 conn.Open();
                 string query1 = "UPDATE products SET stock = stock - @quantity WHERE products = @productName";
-                string query = "INSERT INTO orderstemp (ProductName, Quantity) VALUES (@ProductName, @Quantity)";
+                string query = @"
+                    INSERT INTO orderstemp (ProductName, Quantity, Price) 
+                    SELECT @ProductName, @Quantity, Price 
+                    FROM products 
+                    WHERE products = @ProductName";
+
+
+
                 using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@ProductName", productName);
@@ -160,6 +307,8 @@ namespace CPSS_ol_artik
                     cmd.Parameters.AddWithValue("@quantity", quantity);
                     cmd.ExecuteNonQuery();
                     LoadStocksToDataGridView(dataGridView);
+                    mainmenu mm = new mainmenu();
+                    loaddatatocombobox("products", "products", mm.orderdellproname);
                 }
             }
         }

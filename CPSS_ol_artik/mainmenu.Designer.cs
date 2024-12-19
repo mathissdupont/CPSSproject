@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainmenu));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.stockpage = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -85,9 +84,17 @@
             this.ordercancelID = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.satispage = new System.Windows.Forms.TabPage();
+            this.printpage = new System.Windows.Forms.TabPage();
+            this.selecttablebttn = new System.Windows.Forms.Button();
+            this.datatablecombox = new System.Windows.Forms.ComboBox();
+            this.printbutton = new System.Windows.Forms.Button();
+            this.printgridview = new System.Windows.Forms.DataGridView();
             this.saveandquitpage = new System.Windows.Forms.TabPage();
             this.saveandquitbttn = new System.Windows.Forms.Button();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.label19 = new System.Windows.Forms.Label();
+            this.totalpricelabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.stockpage.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -108,6 +115,8 @@
             this.vieworderpage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.confirmedordersgrid)).BeginInit();
             this.delorderpage.SuspendLayout();
+            this.printpage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.printgridview)).BeginInit();
             this.saveandquitpage.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,7 +125,7 @@
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.tabControl1.Controls.Add(this.stockpage);
             this.tabControl1.Controls.Add(this.orderpage);
-            this.tabControl1.Controls.Add(this.satispage);
+            this.tabControl1.Controls.Add(this.printpage);
             this.tabControl1.Controls.Add(this.saveandquitpage);
             this.tabControl1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.tabControl1.Location = new System.Drawing.Point(4, 0);
@@ -461,6 +470,8 @@
             // 
             // addorderpage
             // 
+            this.addorderpage.Controls.Add(this.totalpricelabel);
+            this.addorderpage.Controls.Add(this.label19);
             this.addorderpage.Controls.Add(this.orderconfirmbttn);
             this.addorderpage.Controls.Add(this.orderdetailsgrid);
             this.addorderpage.Controls.Add(this.label16);
@@ -503,6 +514,7 @@
             this.orderdetailsgrid.RowTemplate.Height = 24;
             this.orderdetailsgrid.Size = new System.Drawing.Size(927, 214);
             this.orderdetailsgrid.TabIndex = 13;
+            this.orderdetailsgrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.orderdetailsgrid_CellContentClick);
             // 
             // label16
             // 
@@ -651,14 +663,6 @@
             this.confirmedordersgrid.AllowUserToDeleteRows = false;
             this.confirmedordersgrid.AllowUserToOrderColumns = true;
             this.confirmedordersgrid.BackgroundColor = System.Drawing.SystemColors.Menu;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.confirmedordersgrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.confirmedordersgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.confirmedordersgrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.confirmedordersgrid.Location = new System.Drawing.Point(3, 3);
@@ -691,6 +695,7 @@
             this.ordercancelbttn.TabIndex = 3;
             this.ordercancelbttn.Text = "Sipariş İptal";
             this.ordercancelbttn.UseVisualStyleBackColor = true;
+            this.ordercancelbttn.Click += new System.EventHandler(this.ordercancelbttn_Click);
             // 
             // ordercancelID
             // 
@@ -699,6 +704,7 @@
             this.ordercancelID.Name = "ordercancelID";
             this.ordercancelID.Size = new System.Drawing.Size(370, 45);
             this.ordercancelID.TabIndex = 2;
+            this.ordercancelID.TextChanged += new System.EventHandler(this.ordercancelID_TextChanged);
             // 
             // label18
             // 
@@ -720,14 +726,59 @@
             this.label17.TabIndex = 0;
             this.label17.Text = "Sipariş İptal";
             // 
-            // satispage
+            // printpage
             // 
-            this.satispage.Location = new System.Drawing.Point(4, 4);
-            this.satispage.Name = "satispage";
-            this.satispage.Size = new System.Drawing.Size(936, 612);
-            this.satispage.TabIndex = 2;
-            this.satispage.Text = "Satış";
-            this.satispage.UseVisualStyleBackColor = true;
+            this.printpage.Controls.Add(this.selecttablebttn);
+            this.printpage.Controls.Add(this.datatablecombox);
+            this.printpage.Controls.Add(this.printbutton);
+            this.printpage.Controls.Add(this.printgridview);
+            this.printpage.Location = new System.Drawing.Point(4, 4);
+            this.printpage.Name = "printpage";
+            this.printpage.Size = new System.Drawing.Size(936, 612);
+            this.printpage.TabIndex = 2;
+            this.printpage.Text = "Print";
+            this.printpage.UseVisualStyleBackColor = true;
+            // 
+            // selecttablebttn
+            // 
+            this.selecttablebttn.Location = new System.Drawing.Point(360, 0);
+            this.selecttablebttn.Name = "selecttablebttn";
+            this.selecttablebttn.Size = new System.Drawing.Size(147, 39);
+            this.selecttablebttn.TabIndex = 3;
+            this.selecttablebttn.Text = "Tablo Seç";
+            this.selecttablebttn.UseVisualStyleBackColor = true;
+            this.selecttablebttn.Click += new System.EventHandler(this.selecttablebttn_Click);
+            // 
+            // datatablecombox
+            // 
+            this.datatablecombox.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.datatablecombox.FormattingEnabled = true;
+            this.datatablecombox.Location = new System.Drawing.Point(0, 0);
+            this.datatablecombox.Name = "datatablecombox";
+            this.datatablecombox.Size = new System.Drawing.Size(354, 39);
+            this.datatablecombox.TabIndex = 2;
+            this.datatablecombox.SelectedIndexChanged += new System.EventHandler(this.datatablecombox_SelectedIndexChanged);
+            // 
+            // printbutton
+            // 
+            this.printbutton.Location = new System.Drawing.Point(789, 0);
+            this.printbutton.Name = "printbutton";
+            this.printbutton.Size = new System.Drawing.Size(147, 39);
+            this.printbutton.TabIndex = 1;
+            this.printbutton.Text = "Yazdır";
+            this.printbutton.UseVisualStyleBackColor = true;
+            this.printbutton.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // printgridview
+            // 
+            this.printgridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.printgridview.Location = new System.Drawing.Point(0, 41);
+            this.printgridview.Name = "printgridview";
+            this.printgridview.RowHeadersWidth = 51;
+            this.printgridview.RowTemplate.Height = 24;
+            this.printgridview.Size = new System.Drawing.Size(936, 571);
+            this.printgridview.TabIndex = 0;
+            this.printgridview.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // saveandquitpage
             // 
@@ -748,6 +799,43 @@
             this.saveandquitbttn.Text = "Save and Quit";
             this.saveandquitbttn.UseVisualStyleBackColor = true;
             this.saveandquitbttn.Click += new System.EventHandler(this.saveandquitbttn_Click);
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
+            // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label19.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label19.Location = new System.Drawing.Point(676, 463);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(143, 33);
+            this.label19.TabIndex = 15;
+            this.label19.Text = "Total Price:";
+            this.label19.Click += new System.EventHandler(this.label19_Click);
+            // 
+            // totalpricelabel
+            // 
+            this.totalpricelabel.AutoSize = true;
+            this.totalpricelabel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.totalpricelabel.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.totalpricelabel.Location = new System.Drawing.Point(809, 463);
+            this.totalpricelabel.Name = "totalpricelabel";
+            this.totalpricelabel.Size = new System.Drawing.Size(97, 33);
+            this.totalpricelabel.TabIndex = 16;
+            this.totalpricelabel.Text = "label20";
             // 
             // mainmenu
             // 
@@ -783,6 +871,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.confirmedordersgrid)).EndInit();
             this.delorderpage.ResumeLayout(false);
             this.delorderpage.PerformLayout();
+            this.printpage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.printgridview)).EndInit();
             this.saveandquitpage.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -798,7 +888,6 @@
         private System.Windows.Forms.TabPage updatestockpage;
         private System.Windows.Forms.TabPage viewstokpage;
         private System.Windows.Forms.TabPage orderpage;
-        private System.Windows.Forms.TabPage satispage;
         private System.Windows.Forms.TabPage saveandquitpage;
         private System.Windows.Forms.TabControl tabControl3;
         private System.Windows.Forms.TabPage addorderpage;
@@ -809,7 +898,7 @@
         private System.Windows.Forms.Button saveandquitbttn;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox stockproductname;
+        public System.Windows.Forms.ComboBox stockproductname;
         private System.Windows.Forms.Button addnewproductbttn;
         private System.Windows.Forms.Button addstockbttn;
         private System.Windows.Forms.TextBox stockaddvalue;
@@ -825,7 +914,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox orderdellproname;
+        public System.Windows.Forms.ComboBox orderdellproname;
         private System.Windows.Forms.ComboBox orderaddproname;
         private System.Windows.Forms.Button orderdell;
         private System.Windows.Forms.Button orderadd;
@@ -848,5 +937,14 @@
         private System.Windows.Forms.DataGridView orderdetailsgrid;
         private System.Windows.Forms.Button orderconfirmbttn;
         private System.Windows.Forms.DataGridView confirmedordersgrid;
+        private System.Windows.Forms.TabPage printpage;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        public  System.Windows.Forms.DataGridView printgridview;
+        private System.Windows.Forms.Button printbutton;
+        private System.Windows.Forms.ComboBox datatablecombox;
+        private System.Windows.Forms.Button selecttablebttn;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label totalpricelabel;
     }
 }

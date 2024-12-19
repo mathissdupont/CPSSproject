@@ -37,6 +37,7 @@ namespace CPSS_ol_artik
             string productname = addproductname.Text;
             string productID = addproductID.Text;
             string productvalue = addproductvalue.Text;
+            string productprice = addproductprice.Text;
             if (string.IsNullOrEmpty(productvalue) || string.IsNullOrEmpty(productname) || string.IsNullOrEmpty(productvalue)) 
             {
                 MessageBox.Show("Kutucuklar boş bırakılamaz.!");
@@ -46,16 +47,20 @@ namespace CPSS_ol_artik
                 using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "INSERT INTO products (products,productID,stock) VALUES (@products,@productID,@stock)";
+                    string query = "INSERT INTO products (products,productID,stock,price) VALUES (@products,@productID,@stock,@productprice)";
                     using(SQLiteCommand cmd = new SQLiteCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@products", productname);
                         cmd.Parameters.AddWithValue("@productID", productID);
                         cmd.Parameters.AddWithValue("stock", productvalue);
+                        cmd.Parameters.AddWithValue("@productprice", productprice);
                         int rowsaffected = cmd.ExecuteNonQuery();                        
                         if (rowsaffected > 0)
                         {                           
                             MessageBox.Show("Ürün başarıyla eklendi.");
+                            databaseclass db = new databaseclass();
+                            mainmenu mm = new mainmenu();
+                            db.loaddatatocombobox("products","products",mm.stockproductname);
                         }
                         else
                         {
@@ -68,6 +73,11 @@ namespace CPSS_ol_artik
             {
                 MessageBox.Show($"Bir hata meydana geldi: {ex.Message}");
             }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

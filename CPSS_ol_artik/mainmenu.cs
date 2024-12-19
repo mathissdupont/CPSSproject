@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Drawing.Text;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,8 @@ namespace CPSS_ol_artik
             dbclass.loaddatatocombobox("products", "products", delstockproductname);
             dbclass.loaddatatocombobox("products", "products", updatestockproductname);
             dbclass.loaddatatocombobox("products", "products", orderaddproname);
-            dbclass.loaddatatocombobox("ProductName","orderstemp",orderdellproname);
+            dbclass.loaddatatocombobox("products","products",orderdellproname);
+            databaseclass.LoadTablesToComboBox(datatablecombox);
             dbclass.LoadStocksToDataGridView(stockgoruntulegrid);
             dbclass.LoadOrdersToDataGridView(orderdetailsgrid);
 
@@ -55,7 +57,9 @@ namespace CPSS_ol_artik
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             string selectedProduct = orderaddproname.SelectedItem?.ToString();
+            
             if (string.IsNullOrEmpty(selectedProduct))
             {
                 MessageBox.Show("Lütfen bir ürün seçiniz.");
@@ -63,11 +67,14 @@ namespace CPSS_ol_artik
             }
             if (orderaddmiktar.Value > 0)
             {
+                decimal totalPrice = databaseclass.totalprice();
+                totalpricelabel.Text = $"{totalPrice}";
                 int quantity = (int)orderaddmiktar.Value;
                 databaseclass dbclass = new databaseclass();
                 dbclass.AddOrder(selectedProduct, quantity,stockgoruntulegrid);
                 MessageBox.Show("Sipariş Eklendi");
                 dbclass.LoadOrdersToDataGridView(orderdetailsgrid);
+                dbclass.loaddatatocombobox("products", "products", orderdellproname);
             }
             else
             {
@@ -86,7 +93,7 @@ namespace CPSS_ol_artik
             addproduct.ShowDialog();
         }
 
-        private void stockproductname_SelectedIndexChanged(object sender, EventArgs e)
+        public void stockproductname_SelectedIndexChanged(object sender, EventArgs e)
         {
             
             
@@ -167,7 +174,9 @@ namespace CPSS_ol_artik
         private void button1_Click_1(object sender, EventArgs e)
         {
             databaseclass dbclass = new databaseclass();
-            dbclass.MoveOrdersToConfirmed(); 
+            int totalPrice = databaseclass.totalprice();
+            
+            dbclass.MoveOrdersToConfirmed(totalPrice); 
             dbclass.LoadOrdersToDataGridView(orderdetailsgrid); 
             dbclass.LoadConfirmedOrdersToDataGridView(confirmedordersgrid); 
             MessageBox.Show("Siparişler onaylandı ve Kaydedildi.!");
@@ -183,6 +192,8 @@ namespace CPSS_ol_artik
             }
             if (orderdellmiktar.Value > 0)
             {
+                int totalPrice = databaseclass.totalprice();
+                totalpricelabel.Text = $"{totalPrice}";
                 int quantity = (int)orderdellmiktar.Value;
                 databaseclass dbclass = new databaseclass();
                 dbclass.DelOrder(selectedProduct, quantity, stockgoruntulegrid);
@@ -206,6 +217,71 @@ namespace CPSS_ol_artik
         }
 
         private void confirmedordersgrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void ordercancelID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ordercancelbttn_Click(object sender, EventArgs e)
+        {
+            databaseclass db = new databaseclass();
+            string selectedID = ordercancelID.Text;
+            db.delorderfinite(selectedID,confirmedordersgrid);
+            
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            try
+            {
+                PrintDocument printDocument = new PrintDocument();
+                printDocument.PrintPage += printDocument1_PrintPage;
+
+                PrintPreviewDialog previewDialog = new PrintPreviewDialog
+                {
+                    Document = printDocument
+                };
+
+                previewDialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Yazdırma işlemi başlatılamadı: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            
+            databaseclass.PrintDataGridView(printgridview, e);
+        }
+
+        private void selecttablebttn_Click(object sender, EventArgs e)
+        {
+            string datatablecombo = datatablecombox.SelectedItem?.ToString();
+            databaseclass.LoadTableData(datatablecombo,printgridview);
+        }
+
+        private void datatablecombox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void orderdetailsgrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label19_Click(object sender, EventArgs e)
         {
 
         }
